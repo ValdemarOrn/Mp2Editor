@@ -5,32 +5,72 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mp2Editor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200">
+        Title="MainWindow" Height="780" Width="1240" Background="#333">
+    <Window.Resources>
+        <ResourceDictionary Source="Styles.xaml" />
+    </Window.Resources>
     <Grid>
-        <Grid.Resources>
-            <Style TargetType="TextBox" x:Key="Codebox">
-                <Setter Property="FontFamily" Value="Consolas" />
-                <Setter Property="FontSize" Value="12" />
-            </Style>
-        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
 
-        <TextBox AcceptsReturn="True" Grid.Row="0" Grid.Column="0" Text="{Binding LastHex}" Style="{StaticResource Codebox}" />
-        <TextBox AcceptsReturn="True" Grid.Row="0" Grid.Column="1" Text="{Binding LastAscii}" Style="{StaticResource Codebox}" />
-        <TextBox AcceptsReturn="True" Grid.Row="1" Grid.Column="0" Text="{Binding CurrentHex}" Style="{StaticResource Codebox}" />
-        <TextBox AcceptsReturn="True" Grid.Row="1" Grid.Column="1" Text="{Binding CurrentAscii}" Style="{StaticResource Codebox}" />
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
-            <Button Margin="5" Padding="3" Command="{Binding LoadSysexCommand}" CommandParameter="Old">Load Old</Button>
-            <Button Margin="5" Padding="3" Command="{Binding LoadSysexCommand}" CommandParameter="New">Load New</Button>
-            <TextBox Text="{Binding DifferenceString}" Width="800"></TextBox>
-        </StackPanel>
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+
+            </Grid.RowDefinitions>
+
+            <Label Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">PRESET LIBRARY</Label>
+            <ListBox Grid.Column="0" Grid.Row="1" Margin="5" Background="#222" Foreground="#bbb">
+                <ListBoxItem>Preset 1</ListBoxItem>
+                <ListBoxItem>Preset 2</ListBoxItem>
+                <ListBoxItem>Preset 3</ListBoxItem>
+            </ListBox>
+        </Grid>
+
+
+        <Grid Grid.Column="1" Margin="0,5">
+            <local:Mp2EditorView/>
+
+        </Grid>
+        <Grid Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="130" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="330" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">CURRENT PRESET</Label>
+            <TextBox AcceptsReturn="True" Grid.Row="1" Grid.Column="0" Text="{Binding LastHex}" Style="{StaticResource Codebox}" />
+            
+            <Label Grid.Row="2" Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">EDITED PRESET</Label>
+            <TextBox AcceptsReturn="True" Grid.Row="3" Grid.Column="0" Text="{Binding CurrentHex}" Style="{StaticResource Codebox}" />
+
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="0,5,5,0">
+                <Button Margin="0,0,0,5">Load Current Preset</Button>
+                <Button Margin="0,0,0,5">Load Blank Preset</Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Vertical" Margin="0,5,5,0">
+                <Button Margin="0,0,0,5">Save To File</Button>
+                <Button Margin="0,0,0,5">Send To Device</Button>
+                <CheckBox VerticalContentAlignment="Center" Margin="3" Foreground="#bbb">Auto-Update</CheckBox>
+            </StackPanel>
+        </Grid>
+        
     </Grid>
 </Window>
+
+    

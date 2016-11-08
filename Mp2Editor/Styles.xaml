@@ -1,0 +1,58 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Mp2Editor">
+    
+    <Style TargetType="Label" >
+        <Setter Property="FontFamily" Value="Helvetica" />
+        <Setter Property="Foreground" Value="#eee" />
+        <Setter Property="Margin" Value="2,2" />
+        <Setter Property="Padding" Value="2" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style TargetType="local:LightKnob" >
+        <Setter Property="Foreground" Value="#3399ff" />
+        <Setter Property="Width" Value="40" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Margin" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="HeaderLabel" >
+        <Setter Property="Grid.ColumnSpan" Value="99" />
+        <Setter Property="Background" Value="#888" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Padding" Value="10,0,0,0" />
+        <Setter Property="Margin" Value="0,0,0,2" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="#eee" />
+        <Setter Property="FontFamily" Value="Arial" />
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="Background" Value="#555" />
+        <Setter Property="Foreground" Value="#bbb" />
+        <Setter Property="BorderBrush" Value="#aaa" />
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="Codebox">
+        <Setter Property="Background" Value="#222" />
+        <Setter Property="Foreground" Value="#bbb" />
+        <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Margin" Value="5" />
+    </Style>
+
+    <Style TargetType="local:FlatToggleButton">
+        <Setter Property="Height" Value="22" />
+        <Setter Property="Foreground" Value="#ddd" />
+        <Setter Property="Background" Value="#555" />
+        <Setter Property="BorderBrush" Value="#777" />
+        <Setter Property="Margin" Value="5" />
+    </Style>
+    
+</ResourceDictionary>
