@@ -8,7 +8,7 @@ using Midi;
 
 namespace Mp2Editor.Core
 {
-	public class SysexTx
+	/*public class SysexTx
 	{
 		private Midi.OutputDevice output;
 
@@ -57,5 +57,5 @@ namespace Mp2Editor.Core
 					output.Close();
 			}
 		}
-	}
+	}*/
 }

@@ -16,8 +16,8 @@ namespace Mp2Editor
 		private string lastAscii;
 		private string currentHex;
 		private string currentAscii;
-		private SysexDump lastDump;
-		private SysexDump currentDump;
+		private byte[] lastDump;
+		private byte[] currentDump;
 		private string differenceString;
 
 		public MainViewModel()
@@ -59,9 +59,9 @@ namespace Mp2Editor
 
 		private void LoadSysex(object obj)
 		{
-			var str = obj.ToString();
-			byte[] syx = null;
-			var t = Task.Run(() => syx = SysexTx.ReceiveSysex());
+			/*var str = obj.ToString();
+			byte[] dump = null;
+			var t = Task.Run(() => dump = SysexTx.ReceiveSysex());
 			while (!t.IsCompleted)
 			{
 				Thread.Sleep(300);
@@ -69,41 +69,39 @@ namespace Mp2Editor
 			}
 			t.Wait();
 
-			var dump = new SysexDump(syx);
-
 			if (str == "Old")
 			{
 				lastDump = dump;
-				LastHex = dump.GetHex(16);
-				LastAscii = dump.GetDecimal(16);
+				LastHex = SysexDump.GetHex(dump, 16);
+				LastAscii = SysexDump.GetDecimal(dump, 16);
 			}
 			else if (str == "New")
 			{
 				currentDump = dump;
-				CurrentHex = dump.GetHex(16);
-				CurrentAscii = dump.GetDecimal(16);
+				CurrentHex = SysexDump.GetHex(dump, 16);
+				CurrentAscii = SysexDump.GetDecimal(dump, 16);
 			}
 
 			if (currentDump != null && lastDump != null)
-				Compare();
+				Compare();*/
 		}
 
 		private void Compare()
 		{
 			var output = "";
-			output += string.Format("Last Len: {0}", lastDump.Data.Length);
-			output += string.Format(", Current Len: {0}", currentDump.Data.Length);
+			output += string.Format("Last Len: {0}", lastDump.Length);
+			output += string.Format(", Current Len: {0}", currentDump.Length);
 			output += "  ";
 
 			int i = 0;
 			while (true)
 			{
-				if (i >= currentDump.Data.Length)
+				if (i >= currentDump.Length)
 					break;
-				if (i >= lastDump.Data.Length)
+				if (i >= lastDump.Length)
 					break;
 
-				var areSame = currentDump.Data[i] == lastDump.Data[i];
+				var areSame = currentDump[i] == lastDump[i];
 				if (!areSame)
 					output += i + ", ";
 

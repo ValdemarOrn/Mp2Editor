@@ -9,16 +9,9 @@ namespace Mp2Editor.Core
 {
 	public class SysexDump
 	{
-		public SysexDump(byte[] data)
+		public static string GetHex(byte[] data, int perLine)
 		{
-			this.Data = data;
-		}
-
-		public byte[] Data { get; set; }
-
-		public string GetHex(int perLine)
-		{
-			var blocks = Data.Chunk(perLine);
+			var blocks = data.Chunk(perLine);
 			var output = "";
 			int i = 0;
 
@@ -31,9 +24,9 @@ namespace Mp2Editor.Core
 			return output;
 		}
 
-		public string GetDecimal(int perLine)
+		public static string GetDecimal(byte[] data, int perLine)
 		{
-			var blocks = Data.Chunk(perLine);
+			var blocks = data.Chunk(perLine);
 			var output = "";
 			int i = 0;
 
