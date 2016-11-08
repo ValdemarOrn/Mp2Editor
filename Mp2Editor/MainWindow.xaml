@@ -1,0 +1,36 @@
+﻿<Window x:Class="Mp2Editor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mp2Editor"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1200">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="TextBox" x:Key="Codebox">
+                <Setter Property="FontFamily" Value="Consolas" />
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBox AcceptsReturn="True" Grid.Row="0" Grid.Column="0" Text="{Binding LastHex}" Style="{StaticResource Codebox}" />
+        <TextBox AcceptsReturn="True" Grid.Row="0" Grid.Column="1" Text="{Binding LastAscii}" Style="{StaticResource Codebox}" />
+        <TextBox AcceptsReturn="True" Grid.Row="1" Grid.Column="0" Text="{Binding CurrentHex}" Style="{StaticResource Codebox}" />
+        <TextBox AcceptsReturn="True" Grid.Row="1" Grid.Column="1" Text="{Binding CurrentAscii}" Style="{StaticResource Codebox}" />
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
+            <Button Margin="5" Padding="3" Command="{Binding LoadSysexCommand}" CommandParameter="Old">Load Old</Button>
+            <Button Margin="5" Padding="3" Command="{Binding LoadSysexCommand}" CommandParameter="New">Load New</Button>
+            <TextBox Text="{Binding DifferenceString}" Width="800"></TextBox>
+        </StackPanel>
+    </Grid>
+</Window>
