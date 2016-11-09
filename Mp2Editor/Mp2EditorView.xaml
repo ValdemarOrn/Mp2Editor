@@ -11,6 +11,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.Resources>
+            <local:BoolToIntConverter x:Key="BoolToIntConverter" />
             <Style TargetType="Grid" x:Key="Section">
                 <Setter Property="Margin" Value="0,0,0,3" />
             </Style>
@@ -52,20 +53,20 @@
             <Label Grid.Row="0" Grid.Column="5" Style="{StaticResource HeaderLabel}">VOICING, DRIVE &amp; LEVEL</Label>
 
             <Label Grid.Row="1" Grid.Column="5">Voicing</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="5" />
-            <Label Grid.Row="3" Grid.Column="5">Fat Gain</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="5" Value="{Binding Values[Voicing]}" />
+            <Label Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="3" Content="{Binding Readouts[Voicing]}" />
 
             <Label Grid.Row="1" Grid.Column="6">Drive</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="6" />
-            <Label Grid.Row="3" Grid.Column="6">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="6" Value="{Binding Values[Drive]}" />
+            <Label Grid.Row="3" Grid.Column="6" Content="{Binding Readouts[Drive]}" />
 
             <Label Grid.Row="1" Grid.Column="7">OD</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="7" />
-            <Label Grid.Row="3" Grid.Column="7">65</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="7" Value="{Binding Values[Od]}" />
+            <Label Grid.Row="3" Grid.Column="7" Content="{Binding Readouts[Od]}" />
 
             <Label Grid.Row="1" Grid.Column="8">Master</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="8" />
-            <Label Grid.Row="3" Grid.Column="8">100</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="8" Value="{Binding Values[Master]}" />
+            <Label Grid.Row="3" Grid.Column="8" Content="{Binding Readouts[Master], FallbackValue=0}" />
 
         </Grid>
 
@@ -91,37 +92,37 @@
             <Label Grid.Row="0" Grid.ColumnSpan="5" Margin="0,0,5,2" Style="{StaticResource HeaderLabel}">COMPRESSOR</Label>
 
             <Label Grid.Row="1" Grid.Column="0">Status</Label>
-            <local:FlatToggleButton Grid.Row="2" Grid.Column="0" Width="50" />
+            <local:FlatToggleButton Grid.Row="2" Grid.Column="0" Width="50" TextOn="IN" TextOff="OUT" IsChecked="{Binding Values[CompIn], Converter={StaticResource BoolToIntConverter}}" />
 
             <Label Grid.Row="1" Grid.Column="1">Threshold</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="1" />
-            <Label Grid.Row="3" Grid.Column="1">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="1" Value="{Binding Values[CompThreshold]}" />
+            <Label Grid.Row="3" Grid.Column="1" Content="{Binding Readouts[CompThreshold], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="2">Gain</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="2" />
-            <Label Grid.Row="3" Grid.Column="2">65</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="2" Value="{Binding Values[CompGain]}" />
+            <Label Grid.Row="3" Grid.Column="2" Content="{Binding Readouts[CompGain], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="3">Ratio</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="3" />
-            <Label Grid.Row="3" Grid.Column="3">100</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="3" Value="{Binding Values[CompRatio]}" />
+            <Label Grid.Row="3" Grid.Column="3" Content="{Binding Readouts[CompRatio], FallbackValue=0}" />
 
             <Label Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="4" Style="{StaticResource HeaderLabel}">TONE CONTROLS</Label>
 
             <Label Grid.Row="1" Grid.Column="5">Lo</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="5" />
-            <Label Grid.Row="3" Grid.Column="5">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="5" Value="{Binding Values[ToneLo]}" />
+            <Label Grid.Row="3" Grid.Column="5" Content="{Binding Readouts[ToneLo], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="6">Mid</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="6" />
-            <Label Grid.Row="3" Grid.Column="6">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="6" Value="{Binding Values[ToneMid]}" />
+            <Label Grid.Row="3" Grid.Column="6" Content="{Binding Readouts[ToneMid], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="7">High</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="7" />
-            <Label Grid.Row="3" Grid.Column="7">65</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="7" Value="{Binding Values[ToneHigh]}" />
+            <Label Grid.Row="3" Grid.Column="7" Content="{Binding Readouts[ToneHigh], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="8">Pres</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="8" />
-            <Label Grid.Row="3" Grid.Column="8">100</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="8" Value="{Binding Values[TonePres]}" />
+            <Label Grid.Row="3" Grid.Column="8" Content="{Binding Readouts[TonePres], FallbackValue=0}" />
         </Grid>
 
         <Grid Grid.Row="2"  Style="{StaticResource Section}">
@@ -146,40 +147,40 @@
             <Label Grid.Row="0" Grid.ColumnSpan="9" Style="{StaticResource HeaderLabel}">GRAPHIC EQ</Label>
 
             <Label Grid.Row="1" Grid.Column="0">100Hz</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="0" />
-            <Label Grid.Row="3" Grid.Column="0">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="0" Value="{Binding Values[EqBand1]}" />
+            <Label Grid.Row="3" Grid.Column="0" Content="{Binding Readouts[EqBand1], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="1">170Hz</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="1" />
-            <Label Grid.Row="3" Grid.Column="1">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="1" Value="{Binding Values[EqBand2]}" />
+            <Label Grid.Row="3" Grid.Column="1" Content="{Binding Readouts[EqBand2], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="2">280Hz</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="2" />
-            <Label Grid.Row="3" Grid.Column="2">65</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="2" Value="{Binding Values[EqBand3]}" />
+            <Label Grid.Row="3" Grid.Column="2" Content="{Binding Readouts[EqBand3], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="3">470Hz</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="3" />
-            <Label Grid.Row="3" Grid.Column="3">100</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="3" Value="{Binding Values[EqBand4]}" />
+            <Label Grid.Row="3" Grid.Column="3" Content="{Binding Readouts[EqBand4], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="4">800Hz</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="4" />
-            <Label Grid.Row="3" Grid.Column="4">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="4" Value="{Binding Values[EqBand5]}" />
+            <Label Grid.Row="3" Grid.Column="4" Content="{Binding Readouts[EqBand5], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="5">1.3Khz</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="5" />
-            <Label Grid.Row="3" Grid.Column="5">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="5" Value="{Binding Values[EqBand6]}" />
+            <Label Grid.Row="3" Grid.Column="5" Content="{Binding Readouts[EqBand6], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="6">2.2Khz</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="6" />
-            <Label Grid.Row="3" Grid.Column="6">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="6" Value="{Binding Values[EqBand7]}" />
+            <Label Grid.Row="3" Grid.Column="6" Content="{Binding Readouts[EqBand7], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="7">3.8Khz</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="7" />
-            <Label Grid.Row="3" Grid.Column="7">65</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="7" Value="{Binding Values[EqBand8]}" />
+            <Label Grid.Row="3" Grid.Column="7" Content="{Binding Readouts[EqBand8], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="8">6.3Khz</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="8" />
-            <Label Grid.Row="3" Grid.Column="8">100</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="8" Value="{Binding Values[EqBand9]}" />
+            <Label Grid.Row="3" Grid.Column="8" Content="{Binding Readouts[EqBand9], FallbackValue=0}" />
         </Grid>
 
         <Grid Grid.Row="3"  Style="{StaticResource Section}">
@@ -204,36 +205,36 @@
             <Label Grid.Row="0" Grid.ColumnSpan="5" Margin="0,0,5,2" Style="{StaticResource HeaderLabel}">NOISE REDUCTION</Label>
 
             <Label Grid.Row="1" Grid.Column="0">Status</Label>
-            <local:FlatToggleButton Grid.Row="2" Grid.Column="0" Width="50" />
+            <local:FlatToggleButton Grid.Row="2" Grid.Column="0" Width="50" TextOn="IN" TextOff="OUT" IsChecked="{Binding Values[NoiseIn], Converter={StaticResource BoolToIntConverter}}" />
 
             <Label Grid.Row="1" Grid.Column="1">Mode</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="1" />
-            <Label Grid.Row="3" Grid.Column="1">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="1" Value="{Binding Values[NoiseMode]}" />
+            <Label Grid.Row="3" Grid.Column="1" Content="{Binding Readouts[NoiseMode], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="2">G Thresh</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="2" />
-            <Label Grid.Row="3" Grid.Column="2">65</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="2" Value="{Binding Values[NoiseThresholdGate]}" />
+            <Label Grid.Row="3" Grid.Column="2" Content="{Binding Readouts[NoiseThresholdGate], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="3">F Thresh</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="3" />
-            <Label Grid.Row="3" Grid.Column="3">100</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="3" Value="{Binding Values[NoiseThresholdFader]}" />
+            <Label Grid.Row="3" Grid.Column="3" Content="{Binding Readouts[NoiseThresholdFader], FallbackValue=0}" />
 
             <Label Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="4" Style="{StaticResource HeaderLabel}">TREMOLO</Label>
 
             <Label Grid.Row="1" Grid.Column="5">Status</Label>
-            <local:FlatToggleButton Grid.Row="2" Grid.Column="5" Width="50" />
+            <local:FlatToggleButton Grid.Row="2" Grid.Column="5" Width="50" TextOn="IN" TextOff="OUT" IsChecked="{Binding Values[TremIn], Converter={StaticResource BoolToIntConverter}}" />
 
             <Label Grid.Row="1" Grid.Column="6">Depth</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="6" />
-            <Label Grid.Row="3" Grid.Column="6">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="6" Value="{Binding Values[TremDepth]}" />
+            <Label Grid.Row="3" Grid.Column="6" Content="{Binding Readouts[TremDepth], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="7">Rate</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="7" />
-            <Label Grid.Row="3" Grid.Column="7">65</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="7" Value="{Binding Values[TremRate]}" />
+            <Label Grid.Row="3" Grid.Column="7" Content="{Binding Readouts[TremRate], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="8">Waveform</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="8" />
-            <Label Grid.Row="3" Grid.Column="8">100</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="8" Value="{Binding Values[TremWaveform]}" />
+            <Label Grid.Row="3" Grid.Column="8" Content="{Binding Readouts[TremWaveform], FallbackValue=0}" />
         </Grid>
 
         <Grid Grid.Row="4"  Style="{StaticResource Section}">
@@ -258,39 +259,39 @@
             <Label Grid.Row="0" Grid.ColumnSpan="9" Style="{StaticResource HeaderLabel}">WAH FILTER</Label>
 
             <Label Grid.Row="1" Grid.Column="0">Status</Label>
-            <local:FlatToggleButton Grid.Row="2" Grid.Column="0" Width="50" />
+            <local:FlatToggleButton Grid.Row="2" Grid.Column="0" Width="50" TextOn="IN" TextOff="OUT" IsChecked="{Binding Values[WahIn], Converter={StaticResource BoolToIntConverter}}" />
 
             <Label Grid.Row="1" Grid.Column="1">Mode</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="1" />
-            <Label Grid.Row="3" Grid.Column="1">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="1" Value="{Binding Values[WahMode]}" />
+            <Label Grid.Row="3" Grid.Column="1" Content="{Binding Readouts[WahMode], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="2">Ped/Start</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="2" />
-            <Label Grid.Row="3" Grid.Column="2">65</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="2" Value="{Binding Values[WahPedalStartPt]}" />
+            <Label Grid.Row="3" Grid.Column="2" Content="{Binding Readouts[WahPedalStartPt], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="3">Sensitivity</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="3" />
-            <Label Grid.Row="3" Grid.Column="3">100</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="3" Value="{Binding Values[WahSensitivity]}" />
+            <Label Grid.Row="3" Grid.Column="3" Content="{Binding Readouts[WahSensitivity], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="4">Delay</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="4" />
-            <Label Grid.Row="3" Grid.Column="4">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="4" Value="{Binding Values[WahDelay]}" />
+            <Label Grid.Row="3" Grid.Column="4" Content="{Binding Readouts[WahDelay], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="5">Depth</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="5" />
-            <Label Grid.Row="3" Grid.Column="5">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="5" Value="{Binding Values[WahDepth]}" />
+            <Label Grid.Row="3" Grid.Column="5" Content="{Binding Readouts[WahDepth], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="6">Rate</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="6" />
-            <Label Grid.Row="3" Grid.Column="6">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="6" Value="{Binding Values[WahRate]}" />
+            <Label Grid.Row="3" Grid.Column="6" Content="{Binding Readouts[WahRate], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="7">Endpoint</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="7" />
-            <Label Grid.Row="3" Grid.Column="7">65</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="7" Value="{Binding Values[WahEndpoint]}" />
+            <Label Grid.Row="3" Grid.Column="7" Content="{Binding Readouts[WahEndpoint], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="8">Waveform</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="8" />
-            <Label Grid.Row="3" Grid.Column="8">100</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="8" Value="{Binding Values[WahWaveform]}" />
+            <Label Grid.Row="3" Grid.Column="8" Content="{Binding Readouts[WahWaveform], FallbackValue=0}" />
         </Grid>
 
         <Grid Grid.Row="5"  Style="{StaticResource Section}">
@@ -315,28 +316,28 @@
             <Label Grid.Row="0" Grid.ColumnSpan="5" Margin="0,0,5,2" Style="{StaticResource HeaderLabel}">STEREO CHORUS</Label>
 
             <Label Grid.Row="1" Grid.Column="0">Status</Label>
-            <local:FlatToggleButton Grid.Row="2" Grid.Column="0" Width="50" />
+            <local:FlatToggleButton Grid.Row="2" Grid.Column="0" Width="50" TextOn="IN" TextOff="OUT" IsChecked="{Binding Values[ChorusIn], Converter={StaticResource BoolToIntConverter}}" />
 
             <Label Grid.Row="1" Grid.Column="1">Depth</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="1" />
-            <Label Grid.Row="3" Grid.Column="1">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="1" Value="{Binding Values[ChorusDepth]}" />
+            <Label Grid.Row="3" Grid.Column="1" Content="{Binding Readouts[ChorusDepth], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="2">Rate</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="2" />
-            <Label Grid.Row="3" Grid.Column="2">65</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="2" Value="{Binding Values[ChorusRate]}" />
+            <Label Grid.Row="3" Grid.Column="2" Content="{Binding Readouts[ChorusRate], FallbackValue=0}" />
 
             <Label Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="4" Style="{StaticResource HeaderLabel}">STEREO EFFECTS LOOP</Label>
 
             <Label Grid.Row="1" Grid.Column="5">Status</Label>
-            <local:FlatToggleButton Grid.Row="2" Grid.Column="5" Width="50" />
+            <local:FlatToggleButton Grid.Row="2" Grid.Column="5" Width="50" TextOn="IN" TextOff="OUT" IsChecked="{Binding Values[LoopIn], Converter={StaticResource BoolToIntConverter}}" />
 
             <Label Grid.Row="1" Grid.Column="6">Loop A</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="6" />
-            <Label Grid.Row="3" Grid.Column="6">20</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="6" Value="{Binding Values[LoopA]}" />
+            <Label Grid.Row="3" Grid.Column="6" Content="{Binding Readouts[LoopA], FallbackValue=0}" />
 
             <Label Grid.Row="1" Grid.Column="7">Loop B</Label>
-            <local:LightKnob Grid.Row="2" Grid.Column="7" />
-            <Label Grid.Row="3" Grid.Column="7">65</Label>
+            <local:LightKnob Grid.Row="2" Grid.Column="7" Value="{Binding Values[LoopB]}" />
+            <Label Grid.Row="3" Grid.Column="7" Content="{Binding Readouts[LoopB], FallbackValue=0}" />
 
         </Grid>
 

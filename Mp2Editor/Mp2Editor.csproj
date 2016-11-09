@@ -71,6 +71,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BoolToIntConverter.cs" />
     <Compile Include="FlatToggleButton.xaml.cs">
       <DependentUpon>FlatToggleButton.xaml</DependentUpon>
     </Compile>
