@@ -92,7 +92,7 @@
             <Label Grid.Row="0" Grid.ColumnSpan="5" Margin="0,0,5,2" Style="{StaticResource HeaderLabel}">COMPRESSOR</Label>
 
             <Label Grid.Row="1" Grid.Column="0">Status</Label>
-            <local:FlatToggleButton Grid.Row="2" Grid.Column="0" Width="50" TextOn="IN" TextOff="OUT" IsChecked="{Binding Values[CompIn], Converter={StaticResource BoolToIntConverter}}" />
+            <local:AdaToggleButton Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" IsChecked="{Binding Values[CompIn], Converter={StaticResource BoolToIntConverter}}" />
 
             <Label Grid.Row="1" Grid.Column="1">Threshold</Label>
             <local:LightKnob Grid.Row="2" Grid.Column="1" Value="{Binding Values[CompThreshold]}" />
@@ -205,7 +205,7 @@
             <Label Grid.Row="0" Grid.ColumnSpan="5" Margin="0,0,5,2" Style="{StaticResource HeaderLabel}">NOISE REDUCTION</Label>
 
             <Label Grid.Row="1" Grid.Column="0">Status</Label>
-            <local:FlatToggleButton Grid.Row="2" Grid.Column="0" Width="50" TextOn="IN" TextOff="OUT" IsChecked="{Binding Values[NoiseIn], Converter={StaticResource BoolToIntConverter}}" />
+            <local:AdaToggleButton Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" IsChecked="{Binding Values[NoiseIn], Converter={StaticResource BoolToIntConverter}}" />
 
             <Label Grid.Row="1" Grid.Column="1">Mode</Label>
             <local:LightKnob Grid.Row="2" Grid.Column="1" Value="{Binding Values[NoiseMode]}" />
@@ -222,7 +222,7 @@
             <Label Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="4" Style="{StaticResource HeaderLabel}">TREMOLO</Label>
 
             <Label Grid.Row="1" Grid.Column="5">Status</Label>
-            <local:FlatToggleButton Grid.Row="2" Grid.Column="5" Width="50" TextOn="IN" TextOff="OUT" IsChecked="{Binding Values[TremIn], Converter={StaticResource BoolToIntConverter}}" />
+            <local:AdaToggleButton Grid.Row="2" Grid.RowSpan="2" Grid.Column="5" IsChecked="{Binding Values[TremIn], Converter={StaticResource BoolToIntConverter}}" />
 
             <Label Grid.Row="1" Grid.Column="6">Depth</Label>
             <local:LightKnob Grid.Row="2" Grid.Column="6" Value="{Binding Values[TremDepth]}" />
@@ -259,7 +259,8 @@
             <Label Grid.Row="0" Grid.ColumnSpan="9" Style="{StaticResource HeaderLabel}">WAH FILTER</Label>
 
             <Label Grid.Row="1" Grid.Column="0">Status</Label>
-            <local:FlatToggleButton Grid.Row="2" Grid.Column="0" Width="50" TextOn="IN" TextOff="OUT" IsChecked="{Binding Values[WahIn], Converter={StaticResource BoolToIntConverter}}" />
+            
+            <local:AdaToggleButton Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" IsChecked="{Binding Values[WahIn], Converter={StaticResource BoolToIntConverter}}" />
 
             <Label Grid.Row="1" Grid.Column="1">Mode</Label>
             <local:LightKnob Grid.Row="2" Grid.Column="1" Value="{Binding Values[WahMode]}" />
@@ -316,7 +317,7 @@
             <Label Grid.Row="0" Grid.ColumnSpan="5" Margin="0,0,5,2" Style="{StaticResource HeaderLabel}">STEREO CHORUS</Label>
 
             <Label Grid.Row="1" Grid.Column="0">Status</Label>
-            <local:FlatToggleButton Grid.Row="2" Grid.Column="0" Width="50" TextOn="IN" TextOff="OUT" IsChecked="{Binding Values[ChorusIn], Converter={StaticResource BoolToIntConverter}}" />
+            <local:AdaToggleButton Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" IsChecked="{Binding Values[ChorusIn], Converter={StaticResource BoolToIntConverter}}" />
 
             <Label Grid.Row="1" Grid.Column="1">Depth</Label>
             <local:LightKnob Grid.Row="2" Grid.Column="1" Value="{Binding Values[ChorusDepth]}" />
@@ -329,7 +330,7 @@
             <Label Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="4" Style="{StaticResource HeaderLabel}">STEREO EFFECTS LOOP</Label>
 
             <Label Grid.Row="1" Grid.Column="5">Status</Label>
-            <local:FlatToggleButton Grid.Row="2" Grid.Column="5" Width="50" TextOn="IN" TextOff="OUT" IsChecked="{Binding Values[LoopIn], Converter={StaticResource BoolToIntConverter}}" />
+            <local:AdaToggleButton Grid.Row="2" Grid.RowSpan="2" Grid.Column="5" IsChecked="{Binding Values[LoopIn], Converter={StaticResource BoolToIntConverter}}" />
 
             <Label Grid.Row="1" Grid.Column="6">Loop A</Label>
             <local:LightKnob Grid.Row="2" Grid.Column="6" Value="{Binding Values[LoopA]}" />

@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mp2Editor"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
-        Title="MainWindow" Height="780" Width="1240" Background="#333">
+        Title="MP-2 Editor" Height="780" Width="1240" Background="#333">
     <Window.Resources>
         <ResourceDictionary Source="Styles.xaml" />
     </Window.Resources>
-    <Grid>
+    <Viewbox Stretch="Uniform">
+    <Grid Width="1240" Height="737">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="3*" />
@@ -60,13 +60,13 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">CURRENT PRESET</Label>
-            <TextBox AcceptsReturn="True" Grid.Row="1" Grid.Column="0" Text="{Binding LastHex}" Style="{StaticResource Codebox}" />
+            <TextBox AcceptsReturn="True" Grid.Row="1" Grid.Column="0" Text="{Binding CurrentProgramHex, Mode=OneWay}" Style="{StaticResource Codebox}" />
             
             <Label Grid.Row="2" Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">EDITED PRESET</Label>
-            <TextBox AcceptsReturn="True" Grid.Row="3" Grid.Column="0" Text="{Binding CurrentHex}" Style="{StaticResource Codebox}" />
+            <TextBox AcceptsReturn="True" Grid.Row="3" Grid.Column="0" Text="{Binding NewProgramHex, Mode=OneWay}" Style="{StaticResource Codebox}" />
 
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="0,5,5,0">
-                <Button Margin="0,0,0,5" Command="{Binding TestCommand}">Load Current Preset</Button>
+                <Button Margin="0,0,0,5" Command="{Binding RequestProgramCommand}">Load Current Preset</Button>
                 <Button Margin="0,0,0,5">Load Blank Preset</Button>
             </StackPanel>
 
@@ -78,6 +78,7 @@
         </Grid>
         
     </Grid>
+    </Viewbox>
 </Window>
 
     

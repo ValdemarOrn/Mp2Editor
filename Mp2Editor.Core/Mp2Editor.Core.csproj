@@ -44,12 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MidiConnection.cs" />
+    <Compile Include="Mp2CharacterMap.cs" />
     <Compile Include="Mp2Params.cs" />
     <Compile Include="Mp2Sysex.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SysexDump.cs" />
-    <Compile Include="SysexTx.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

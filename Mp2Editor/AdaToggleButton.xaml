@@ -1,0 +1,43 @@
+﻿<ToggleButton x:Class="Mp2Editor.AdaToggleButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Mp2Editor"
+             xmlns:ui="clr-namespace:LowProfile.Core.Ui;assembly=LowProfile.Core"
+             mc:Ignorable="d" 
+              x:Name="Main"
+              IsChecked="false"
+             d:DesignHeight="55" d:DesignWidth="38">
+    <ToggleButton.Resources>
+        <ui:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </ToggleButton.Resources>
+    <ToggleButton.Template>
+        <ControlTemplate>
+            <Grid>
+
+                <Rectangle Fill="#3399ff" Stroke="Transparent" StrokeThickness="1.5" RadiusX="4" RadiusY="4"/>
+                <Rectangle Fill="Transparent" Stroke="#2b82d8" StrokeThickness="1.5" RadiusX="4" RadiusY="4">
+                </Rectangle>
+
+                <Ellipse Width="8" Height="8" Fill="#000" Opacity="0.5" VerticalAlignment="Top" Margin="0,11,0,0" >
+                </Ellipse>
+                <Ellipse Width="8" Height="8" VerticalAlignment="Top" Margin="0,11,0,0" Visibility="{Binding ElementName=Main, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}" >
+                    <Ellipse.Fill>
+                        <RadialGradientBrush Center="0.5,0.5" GradientOrigin="0.5,0.5" >
+                            <RadialGradientBrush.GradientStops>
+                                <GradientStop Color="#33f725" Offset="1.0" />
+                                <GradientStop Color="white" Offset="0.0" />
+                            </RadialGradientBrush.GradientStops>
+                        </RadialGradientBrush>
+                    </Ellipse.Fill>
+                    <Ellipse.Effect>
+                        <DropShadowEffect BlurRadius="10" Opacity="0.5" Color="#33f725" ShadowDepth="0" />
+                    </Ellipse.Effect>
+                </Ellipse>
+
+                <Label HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Arial" Margin="0,0,0,2" Foreground="#eee">IN</Label>
+            </Grid>
+        </ControlTemplate>
+    </ToggleButton.Template>
+</ToggleButton>

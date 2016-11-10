@@ -190,7 +190,17 @@ namespace Mp2Editor.Core
 
         public Dictionary<Mp2Params, double> Values { get; set; }
         public Dictionary<Mp2Params, string> Readouts { get; set; }
-        
+
+        public void SetProgram(Dictionary<Mp2Params, int> intValues)
+        {
+            foreach (var kvp in intValues)
+            {
+                var floatVal = kvp.Value / (double)(integerScalars[kvp.Key] - 1.0);
+                Values[kvp.Key] = floatVal;
+            }
+
+            RefreshAll();
+        }
 
         public void RefreshAll()
         {
