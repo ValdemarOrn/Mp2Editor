@@ -16,6 +16,8 @@ namespace Mp2Editor
         public KeyValuePair<int, string>? MidiInput { get; set; }
         public KeyValuePair<int, string>? MidiOutput { get; set; }
         public int MidiChannel { get; set; }
+        public bool AutoUpdate { get; set; }
+        public bool LoadOnProgramSelect { get; set; }
 
         public void SaveToFile(string file = null)
         {

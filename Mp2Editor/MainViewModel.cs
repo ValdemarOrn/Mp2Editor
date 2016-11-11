@@ -36,10 +36,12 @@ namespace Mp2Editor
 	    private KeyValuePair<string, string> selectedProgramFile;
 	    private int currentProgramNumber;
 	    private int midiChannel;
+	    private bool autoUpdate;
+	    private bool loadOnProgramSelect;
+	    private bool isRetry;
 
 	    public MainViewModel()
 		{
-            AutoUpdate = true;
 	        midiChannel = 1;
             RequestProgramCommand = new DelegateCommand(RequestProgram);
             SendToDeviceCommand = new DelegateCommand(SendToDevice);
@@ -155,8 +157,31 @@ namespace Mp2Editor
         public ICommand UpdateProgramNumberCommand { get; set; }
         public ICommand LoadBlankCommand { get; set; }
 
-        public bool AutoUpdate { get; set; }
-        public Mp2ParamState State { get; set; }
+	    public bool AutoUpdate
+	    {
+	        get { return autoUpdate; }
+	        set
+            {
+                autoUpdate = value;
+	            NotifyPropertyChanged();
+                config.AutoUpdate = value;
+	            config.SaveToFile();
+	        }
+	    }
+
+	    public bool LoadOnProgramSelect
+	    {
+	        get { return loadOnProgramSelect; }
+	        set
+	        {
+	            loadOnProgramSelect = value;
+	            NotifyPropertyChanged();
+                config.LoadOnProgramSelect = value;
+	            config.SaveToFile();
+	        }
+	    }
+
+	    public Mp2ParamState State { get; set; }
         public Dictionary<Mp2Params, double> Values => State.Values;
         public Dictionary<Mp2Params, string> Readouts => State.Readouts;
 	    public string CurrentProgramHex => Mp2Sysex.GetHex(currentProgram, 10);
@@ -200,13 +225,19 @@ namespace Mp2Editor
             }
         }
 
+        public void LoadWebsite()
+        {
+            System.Diagnostics.Process.Start("http://google.com");
+        }
+
         private void LoadConfig()
         {
             try
             {
                 suppressMidiUpdate = true;
-
+                AutoUpdate = config.AutoUpdate;
                 MidiChannel = config.MidiChannel;
+                LoadOnProgramSelect = config.LoadOnProgramSelect;
 
                 if (config.MidiInput.HasValue)
                 {
@@ -278,9 +309,25 @@ namespace Mp2Editor
                 NotifyPropertyChanged(nameof(Readouts));
                 NotifyPropertyChanged(nameof(CurrentProgramHex));
                 NotifyPropertyChanged(nameof(NewProgramHex));
+                isRetry = false;
             }
             catch (Exception ex)
             {
+                if (ex.Message.Contains("Computed checksum does match program value"))
+                {
+                    if (!isRetry)
+                    {
+                        isRetry = true;
+                        RequestProgram(null);
+                        return;
+                    }
+                    else
+                    {
+                        isRetry = false;
+                        throw;
+                    }
+                }
+
                 if (ex is FieldAccessException)
                     MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 else
@@ -375,6 +422,19 @@ namespace Mp2Editor
             CurrentProgramNumber = newNumber;
 
             midiConnection.SendProgramSelect(CurrentProgramNumber);
+
+            if (!LoadOnProgramSelect)
+                return;
+
+            Task.Delay(300).ContinueWith(_ =>
+            {
+                if (currentProgramNumber == newNumber)
+                    RequestProgram(null);
+                else
+                {
+                    
+                }
+            });
         }
-    }
+	}
 }

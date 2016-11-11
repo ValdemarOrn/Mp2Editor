@@ -52,5 +52,10 @@ namespace Mp2Editor
 
             MessageBox.Show(e.Message, "An Error has occurred", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            (DataContext as MainViewModel).LoadWebsite();
+        }
     }
 }

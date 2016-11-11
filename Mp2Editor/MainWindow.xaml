@@ -23,15 +23,19 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="379" />
+                    <RowDefinition Height="257" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="160" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Label Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">PRESET LIBRARY</Label>
-                <ListBox Grid.Column="0" Grid.Row="1" Margin="5" Background="#222" Foreground="#bbb"  BorderBrush="#555"
+                <Label FontFamily="Arial" Margin="0,10,0,0" Cursor="Hand" FontWeight="Bold" FontStyle="Italic" FontSize="40" Foreground="#bbb" MouseDown="Label_MouseDown">MP-2</Label>
+                <Label FontFamily="Arial" Margin="158,37,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontStyle="Italic" Foreground="#aaa">v0.1</Label>
+                <Label FontFamily="Arial" Margin="0,55,0,0" FontStyle="Italic" Foreground="#ddd">Program Editor &amp; Librarian</Label>
+                <Label FontFamily="Arial" Margin="0,75,0,0" FontStyle="Italic" Foreground="#ddd">by Valdemar Erlingsson</Label>
+                <Label Style="{StaticResource HeaderLabel}" Margin="5,127,5,0">PRESET LIBRARY</Label>
+                <ListBox Grid.Column="0" Grid.Row="1" Margin="5" Background="#222" Foreground="#bbb"  BorderBrush="#555" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                          ItemsSource="{Binding ProgramFiles}" SelectedItem="{Binding SelectedProgramFile}" DisplayMemberPath="Key">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -100,6 +104,7 @@
                 <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="0,5,5,0">
                     <Button Margin="0,0,0,5" Command="{Binding RequestProgramCommand}">Load Current Preset</Button>
                     <Button Margin="0,0,0,5" Command="{Binding LoadBlankCommand}">Load Blank Preset</Button>
+                    <CheckBox VerticalContentAlignment="Center" Margin="3" Foreground="#bbb" IsChecked="{Binding LoadOnProgramSelect}">Load on Prgm Select</CheckBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Vertical" Margin="0,5,5,0">

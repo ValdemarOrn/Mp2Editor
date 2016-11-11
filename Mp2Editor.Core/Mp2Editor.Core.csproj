@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LowProfile.Core">
+      <HintPath>..\Binaries\LowProfile.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Midi">
+      <HintPath>..\Binaries\Midi.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,16 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\dev\midi-dot-net\Midi\Midi.csproj">
-      <Project>{f60d8b7b-2d2e-4b94-a736-3783ffe1a25c}</Project>
-      <Name>Midi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\LowProfile.Common\LowProfile.Core\LowProfile.Core.csproj">
-      <Project>{6f6a3fb4-5e5f-4076-b91a-f8c7fe84e37c}</Project>
-      <Name>LowProfile.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
