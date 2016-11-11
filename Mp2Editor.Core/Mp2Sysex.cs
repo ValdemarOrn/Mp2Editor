@@ -12,7 +12,7 @@ namespace Mp2Editor.Core
 		/// <summary>
 		/// Triggers a sysex patch dump on channel 1
 		/// </summary>
-		public static byte[] RequestDump = new[] { 0xF0, 0x0D, 0x00, 0x08, 0x03, 0x7F, 0x69, 0xF7 }.Select(x => (byte)x).ToArray();
+		private static byte[] RequestDump = new[] { 0xF0, 0x0D, 0x00, 0x08, 0x03, 0x7F, 0x69, 0xF7 }.Select(x => (byte)x).ToArray();
         private static byte[] ProgramHeader = new[] { 0xF0, 0x0D, 0x00, 0x09, 0x03, 0x7F }.Select(x => (byte)x).ToArray();
 
         /*
@@ -34,14 +34,24 @@ namespace Mp2Editor.Core
 		0B - Load Library Command
 		*/
 
-        public static Tuple<string, Dictionary<Mp2Params, int>> ParseProgram(byte[] data)
+	    public static byte[] RequestDumpSysex(int midichannel1_16)
+	    {
+	        var bytes = RequestDump.Select(x => x).ToArray();
+	        bytes[2] = (byte)(midichannel1_16 - 1);
+	        var checksum = ComputeChecksum(bytes, true, true);
+	        bytes[6] = (byte)checksum;
+	        return bytes;
+	    }
+
+        public static Tuple<string, Dictionary<Mp2Params, int>, byte[]> ParseProgram(byte[] data)
 	    {
 	        var computedChecksum = ComputeChecksum(data, true, true);
 	        var expectedChecksum = data[data.Length - 2];
 	        if (computedChecksum != expectedChecksum)
 	            throw new Exception("Computed checksum does match program value");
 
-            if (!data.Take(6).SequenceEqual(ProgramHeader))
+            // insanity! they include the midi chanel IN THE HEADER!?
+            if (data[0] != ProgramHeader[0] || data[1] != ProgramHeader[1] || data[3] != ProgramHeader[3] || data[4] != ProgramHeader[4] || data[5] != ProgramHeader[5])
                 throw new Exception("Received value does not have the correct program header, it is not a valid MP2 program");
 
             int byteIdx = 6;
@@ -84,8 +94,9 @@ namespace Mp2Editor.Core
                 valuesRead++;
             }
 
+            var remainder = data.Skip(byteIdx).ToArray();
             var nameString = new string(presetNameValues.Select(x => Mp2CharacterMap.ValueToChar[x]).ToArray());
-            return Tuple.Create(nameString, paramDict);
+            return Tuple.Create(nameString, paramDict, remainder);
 	    }
 
 	    public static int ComputeChecksum(byte[] data, bool includesSysexStart, bool includesChecksumAndSysexEnd)
@@ -107,6 +118,9 @@ namespace Mp2Editor.Core
 
         public static string GetHex(byte[] data, int perLine)
         {
+            if (data == null)
+                return "";
+
             var blocks = data.Chunk(perLine);
             var output = "";
             int i = 0;
@@ -135,5 +149,49 @@ namespace Mp2Editor.Core
 
             return output;
         }
-    }
+
+	    public static bool VerifyValidName(string value)
+	    {
+            if (value.Length > 16)
+                return false;
+
+	        foreach (var ch in value)
+	        {
+                if (!Mp2CharacterMap.ValueToChar.ContainsValue(ch))
+                    return false;
+	        }
+
+	        return true;
+	    }
+
+	    public static byte[] CreateProgram(byte[] currentProgram, int midiChannel1_16, string programName, Mp2ParamState state)
+	    {
+	        var midiChannel = midiChannel1_16 - 1;
+            var parsedCurrent = ParseProgram(currentProgram);
+	        programName = programName.PadRight(16, ' ');
+
+            var programNameValues = programName.Select(x => Mp2CharacterMap.ValueToChar.Single(y => y.Value == x).Key).ToArray();
+	        var stateValues = state.GetIntegerValues();
+            var integerValues = programNameValues.Concat(stateValues).ToArray();
+
+	        var startIndex = 6;
+	        var newProgram = ProgramHeader.ToList();
+	        newProgram[2] = (byte)midiChannel;
+
+	        for (int i = startIndex; i < integerValues.Length + startIndex; i++)
+	        {
+	            var value = integerValues[i - startIndex];
+	            if (value > 63)
+	                newProgram.Add(0x41);
+
+	            newProgram.Add((byte)value);
+	        }
+
+	        newProgram.AddRange(parsedCurrent.Item3);
+
+            var checksum = Mp2Sysex.ComputeChecksum(newProgram.ToArray(), true, true);
+	        newProgram[newProgram.Count - 2] = (byte)checksum;
+	        return newProgram.ToArray();
+	    }
+	}
 }

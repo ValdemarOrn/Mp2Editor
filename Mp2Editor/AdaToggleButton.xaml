@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:Mp2Editor"
              xmlns:ui="clr-namespace:LowProfile.Core.Ui;assembly=LowProfile.Core"
              mc:Ignorable="d" 
-              x:Name="Main"
-              IsChecked="false"
+             x:Name="Main"
              d:DesignHeight="55" d:DesignWidth="38">
     <ToggleButton.Resources>
         <ui:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
@@ -16,7 +15,7 @@
         <ControlTemplate>
             <Grid>
 
-                <Rectangle Fill="#3399ff" Stroke="Transparent" StrokeThickness="1.5" RadiusX="4" RadiusY="4"/>
+                <Rectangle Fill="{Binding ElementName=Main, Path=Background}" Stroke="Transparent" StrokeThickness="1.5" RadiusX="4" RadiusY="4"/>
                 <Rectangle Fill="Transparent" Stroke="#2b82d8" StrokeThickness="1.5" RadiusX="4" RadiusY="4">
                 </Rectangle>
 
@@ -36,7 +35,7 @@
                     </Ellipse.Effect>
                 </Ellipse>
 
-                <Label HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Arial" Margin="0,0,0,2" Foreground="#eee">IN</Label>
+                <Label HorizontalAlignment="Center" Foreground="#eee" VerticalAlignment="Bottom" FontFamily="Arial" Margin="0,0,0,2">IN</Label>
             </Grid>
         </ControlTemplate>
     </ToggleButton.Template>

@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -41,10 +42,10 @@ namespace Mp2Editor
                     });
             }
 
-            var buttons = GetChildrenOfType<FlatToggleButton>(this.Content as Grid).ToArray();
+            var buttons = GetChildrenOfType<AdaToggleButton>(this.Content as Grid).ToArray();
             foreach (var item in buttons)
             {
-                DependencyPropertyDescriptor.FromProperty(FlatToggleButton.IsCheckedProperty, this.GetType()).AddValueChanged(item,
+                DependencyPropertyDescriptor.FromProperty(AdaToggleButton.IsCheckedProperty, this.GetType()).AddValueChanged(item,
                     (s, e) =>
                     {
                         var vm = DataContext as MainViewModel;

@@ -47,8 +47,9 @@
             <Label Grid.Row="0" Grid.ColumnSpan="5" Style="{StaticResource HeaderLabel}" Margin="0,0,5,2">PRESET NAME</Label>
 
             <TextBox Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="5" HorizontalAlignment="Center" Width="270" Margin="10" 
+                     ToolTip="Test123" x:Name="ProgramNameTextBox"
                      Height="30" Background="#222" Foreground="#bbb" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                     FontFamily="Arial" FontSize="20">Test</TextBox>
+                     FontFamily="Arial" FontSize="20" Text="{Binding ProgramName, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Grid.Row="0" Grid.Column="5" Style="{StaticResource HeaderLabel}">VOICING, DRIVE &amp; LEVEL</Label>
 

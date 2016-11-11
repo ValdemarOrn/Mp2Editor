@@ -5,79 +5,105 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mp2Editor"
         mc:Ignorable="d"
-        Title="MP-2 Editor" Height="780" Width="1240" Background="#333">
+        Title="MP-2 Editor" Height="750" Width="1220" Background="#333">
     <Window.Resources>
         <ResourceDictionary Source="Styles.xaml" />
     </Window.Resources>
     <Viewbox Stretch="Uniform">
-    <Grid Width="1240" Height="737">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="2*" />
-        </Grid.ColumnDefinitions>
-
-        <Grid Grid.Column="0">
+        <Grid Width="1240" Height="737">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1.8*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="574" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
 
-            <Label Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">PRESET LIBRARY</Label>
-            <ListBox Grid.Column="0" Grid.Row="1" Margin="5" Background="#222" Foreground="#bbb">
-                <ListBoxItem>Preset 1</ListBoxItem>
-                <ListBoxItem>Preset 2</ListBoxItem>
-                <ListBoxItem>Preset 3</ListBoxItem>
-            </ListBox>
-            <Label Grid.Row="2" Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">PROGRAM SELECT</Label>
-            <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
-                <Button VerticalAlignment="Center" Margin="10" FontSize="20" Width="30" Height="30">&lt;</Button>
-                <Label VerticalAlignment="Center" Padding="0" Margin="10">124</Label>
-                <Button VerticalAlignment="Center" Margin="10" FontSize="20" Width="30" Height="30">&gt;</Button>
-            </StackPanel>
-        </Grid>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="379" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="160" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">PRESET LIBRARY</Label>
+                <ListBox Grid.Column="0" Grid.Row="1" Margin="5" Background="#222" Foreground="#bbb" 
+                         ItemsSource="{Binding ProgramFiles}" SelectedItem="{Binding SelectedProgramFile}" DisplayMemberPath="Key" />
 
 
-        <Grid Grid.Column="1" Margin="0,5">
-            <local:Mp2EditorView/>
+                <Label Grid.Row="2" Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">MIDI CONNECTION</Label>
+                <StackPanel Orientation="Vertical" Grid.Row="3" HorizontalAlignment="Center">
+                    <Label Margin="3,10,3,3">Input</Label>
+                    <ComboBox Width="180" Margin="10,0" DisplayMemberPath="Value" ItemsSource="{Binding MidiInputs}" SelectedItem="{Binding SelectedMidiInput}"></ComboBox>
+                    <Label Margin="3">Output</Label>
+                    <ComboBox Width="180" Margin="10,0" DisplayMemberPath="Value" ItemsSource="{Binding MidiOutputs}" SelectedItem="{Binding SelectedMidiOutput}"></ComboBox>
+                    <Label Margin="3">Channel</Label>
+                    <ComboBox Width="180" Margin="10,0" SelectedItem="{Binding MidiChannel}" ItemsSource="{Binding MidiChannels}">
+                    </ComboBox>
 
-        </Grid>
-        <Grid Grid.Column="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="130" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="330" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+                </StackPanel>
 
-            <Label Grid.Row="0" Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">CURRENT PRESET</Label>
-            <TextBox AcceptsReturn="True" Grid.Row="1" Grid.Column="0" Text="{Binding CurrentProgramHex, Mode=OneWay}" Style="{StaticResource Codebox}" />
+                <Label Grid.Row="4" Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">PROGRAM SELECT</Label>
+                <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,22,0,0">
+                    <local:AdaButton VerticalAlignment="Center" FontSize="8" Margin="3" Command="{Binding UpdateProgramNumberCommand}" CommandParameter="-1">
+                        <TextBlock TextAlignment="Center">PRGM<LineBreak/>DWN</TextBlock>
+                    </local:AdaButton>
+                    <local:AdaButton VerticalAlignment="Center" FontSize="8" Margin="3" Command="{Binding UpdateProgramNumberCommand}" CommandParameter="1">
+                        <TextBlock TextAlignment="Center">PRGM<LineBreak/>UP</TextBlock>
+                    </local:AdaButton>
+
+                    <local:AdaButton VerticalAlignment="Center" FontSize="8" Margin="3" Command="{Binding UpdateProgramNumberCommand}" CommandParameter="-10">
+                        <TextBlock TextAlignment="Center">BANK<LineBreak/>DWN</TextBlock>
+                    </local:AdaButton>
+                    <local:AdaButton VerticalAlignment="Center" FontSize="8" Margin="3" Command="{Binding UpdateProgramNumberCommand}" CommandParameter="10">
+                        <TextBlock TextAlignment="Center">BANK<LineBreak/>UP</TextBlock>
+                    </local:AdaButton>
+
+                    <Label VerticalAlignment="Center" Padding="0" Margin="10" Content="{Binding ProgramNumberDisplay, FallbackValue=001}" />
+
+                </StackPanel>
+            </Grid>
+
+
+            <Grid Grid.Column="1" Margin="0,5">
+                <local:Mp2EditorView/>
+
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="140" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="330" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">CURRENT PRESET</Label>
+                <TextBox AcceptsReturn="True" Grid.Row="1" Grid.Column="0" Text="{Binding CurrentProgramHex, Mode=OneWay}" Style="{StaticResource Codebox}" />
             
-            <Label Grid.Row="2" Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">EDITED PRESET</Label>
-            <TextBox AcceptsReturn="True" Grid.Row="3" Grid.Column="0" Text="{Binding NewProgramHex, Mode=OneWay}" Style="{StaticResource Codebox}" />
+                <Label Grid.Row="2" Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">EDITED PRESET</Label>
+                <TextBox AcceptsReturn="True" Grid.Row="3" Grid.Column="0" Text="{Binding NewProgramHex, Mode=OneWay}" Style="{StaticResource Codebox}" />
 
-            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="0,5,5,0">
-                <Button Margin="0,0,0,5" Command="{Binding RequestProgramCommand}">Load Current Preset</Button>
-                <Button Margin="0,0,0,5">Load Blank Preset</Button>
-            </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="0,5,5,0">
+                    <Button Margin="0,0,0,5" Command="{Binding RequestProgramCommand}">Load Current Preset</Button>
+                    <Button Margin="0,0,0,5">Load Blank Preset</Button>
+                </StackPanel>
 
-            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Vertical" Margin="0,5,5,0">
-                <Button Margin="0,0,0,5">Save To File</Button>
-                <Button Margin="0,0,0,5">Send To Device</Button>
-                <CheckBox VerticalContentAlignment="Center" Margin="3" Foreground="#bbb">Auto-Update</CheckBox>
-            </StackPanel>
-        </Grid>
+                <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Vertical" Margin="0,5,5,0">
+                    <Button Margin="0,0,0,5" Command="{Binding SaveToFileCommand}">Save To File</Button>
+                    <Button Margin="0,0,0,5" Command="{Binding SendToDeviceCommand}">Send To Device</Button>
+                    <CheckBox VerticalContentAlignment="Center" Margin="3" Foreground="#bbb" IsChecked="{Binding AutoUpdate}">Auto-Update</CheckBox>
+                </StackPanel>
+            </Grid>
         
-    </Grid>
+        </Grid>
     </Viewbox>
 </Window>
 

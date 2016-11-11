@@ -33,17 +33,44 @@
     <Style TargetType="Button">
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="Padding" Value="4" />
-        <Setter Property="Background" Value="#555" />
-        <Setter Property="Foreground" Value="#bbb" />
-        <Setter Property="BorderBrush" Value="#aaa" />
+        <Setter Property="Background" Value="#373737" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border CornerRadius="4" Background="{TemplateBinding Background}" Padding="0,4,2,4">
+                        <Grid>
+                            <Path x:Name="PathIcon" Width="14" Height="20" Stretch="Fill" Fill="#3399ff" HorizontalAlignment="Left" Margin="5,0,0,0" Data="F1 M 30.0833,22.1667L 50.6665,37.6043L 50.6665,38.7918L 30.0833,53.8333L 30.0833,22.1667 Z "/>
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="26,0,0,0" />
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#474747" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter TargetName="PathIcon" Property="Fill" Value="#666" />
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#555" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style TargetType="TextBox" x:Key="Codebox">
         <Setter Property="Background" Value="#222" />
         <Setter Property="Foreground" Value="#bbb" />
         <Setter Property="FontFamily" Value="Consolas" />
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="IsReadOnly" Value="True" />
         <Setter Property="Margin" Value="5" />
     </Style>
 
@@ -58,11 +85,35 @@
     <Style TargetType="local:AdaToggleButton">
         <Setter Property="Height" Value="50" />
         <Setter Property="Width" Value="32" />
+        <Setter Property="Background" Value="#3399ff" />
+        <Setter Property="Foreground" Value="White" />
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="Foreground" Value="#ddd" />
-        <Setter Property="Background" Value="#555" />
         <Setter Property="BorderBrush" Value="#777" />
         <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#4ba4fc"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="local:AdaButton">
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Background" Value="#3399ff" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="BorderBrush" Value="#777" />
+        <Setter Property="Margin" Value="0,2,0,0" />
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#4ba4fc"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

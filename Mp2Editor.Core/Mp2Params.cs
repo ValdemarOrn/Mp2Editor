@@ -185,6 +185,9 @@ namespace Mp2Editor.Core
             Values = new Dictionary<Mp2Params, double>();
             Readouts = new Dictionary<Mp2Params, string>();
 
+            foreach (var kvp in integerScalars)
+                Values[kvp.Key] = 0.0;
+
             RefreshAll();
         }
 
@@ -200,6 +203,13 @@ namespace Mp2Editor.Core
             }
 
             RefreshAll();
+        }
+
+        public int[] GetIntegerValues()
+        {
+            return Values.OrderBy(x => x.Key)
+                .Select(kvp => GetInt(kvp.Key))
+                .ToArray();
         }
 
         public void RefreshAll()

@@ -64,6 +64,7 @@ namespace Mp2Editor.Core
             Output.Open();
         }
         
+        public int Channel { get; set; }
         public InputDevice Input { get; private set; }
         public OutputDevice Output { get; private set; }
 
@@ -88,6 +89,11 @@ namespace Mp2Editor.Core
         {
             if (SysexCallback != null)
                 SysexCallback.Invoke(msg.Data);
+        }
+
+        public void SendProgramSelect(int programNumber)
+        {
+            Output.SendProgramChange((Channel)(this.Channel - 1), (Instrument)programNumber);
         }
     }
 }
