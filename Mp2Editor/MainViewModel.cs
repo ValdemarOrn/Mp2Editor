@@ -19,6 +19,7 @@ namespace Mp2Editor
 	{
 	    private readonly object sendLock = new object();
         private readonly string programDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Programs");
+        private readonly string defaultProgramFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "DEFAULT_PROGRAM.syx");
 
         private MidiConnection midiConnection { get; set; }
 	    private byte[] currentProgram;
@@ -44,6 +45,8 @@ namespace Mp2Editor
             SendToDeviceCommand = new DelegateCommand(SendToDevice);
 	        SaveToFileCommand = new DelegateCommand(SaveToFile);
 	        UpdateProgramNumberCommand = new DelegateCommand(UpdateProgramNumber);
+	        LoadBlankCommand = new DelegateCommand(LoadBlank);
+
             State = new Mp2ParamState();
 	        config = ConfigSettings.LoadFromFile();
 	        LoadPrograms();
@@ -150,6 +153,7 @@ namespace Mp2Editor
         public ICommand SendToDeviceCommand { get; set; }
         public ICommand SaveToFileCommand { get; set; }
         public ICommand UpdateProgramNumberCommand { get; set; }
+        public ICommand LoadBlankCommand { get; set; }
 
         public bool AutoUpdate { get; set; }
         public Mp2ParamState State { get; set; }
@@ -330,8 +334,14 @@ namespace Mp2Editor
 
             ProgramFiles = Directory.GetFiles(programDirectory, "*.syx").ToDictionary(Path.GetFileNameWithoutExtension, x => x);
         }
-        
-	    private void SaveToFile(object obj)
+
+        private void LoadBlank(object obj)
+        {
+            var data = File.ReadAllBytes(defaultProgramFile);
+            this.ReceiveProgramHandler(data);
+        }
+
+        private void SaveToFile(object obj)
 	    {
 	        if (newProgram == null)
 	        {
@@ -339,7 +349,7 @@ namespace Mp2Editor
                 return;
 	        }
 
-	        var filepath = Path.Combine(programDirectory, (programName ?? "").Trim() + ".syx");
+	        var filepath = Path.Combine((programName ?? "New Program").Trim() + ".syx");
             var dialog = new SaveFileDialog()
             {
                 FileName = filepath,

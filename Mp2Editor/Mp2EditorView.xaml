@@ -48,6 +48,7 @@
 
             <TextBox Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="5" HorizontalAlignment="Center" Width="270" Margin="10" 
                      ToolTip="Test123" x:Name="ProgramNameTextBox"
+                     BorderBrush="#555"
                      Height="30" Background="#222" Foreground="#bbb" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                      FontFamily="Arial" FontSize="20" Text="{Binding ProgramName, UpdateSourceTrigger=PropertyChanged}" />
 

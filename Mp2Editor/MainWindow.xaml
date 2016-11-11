@@ -31,8 +31,14 @@
                 </Grid.RowDefinitions>
 
                 <Label Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">PRESET LIBRARY</Label>
-                <ListBox Grid.Column="0" Grid.Row="1" Margin="5" Background="#222" Foreground="#bbb" 
-                         ItemsSource="{Binding ProgramFiles}" SelectedItem="{Binding SelectedProgramFile}" DisplayMemberPath="Key" />
+                <ListBox Grid.Column="0" Grid.Row="1" Margin="5" Background="#222" Foreground="#bbb"  BorderBrush="#555"
+                         ItemsSource="{Binding ProgramFiles}" SelectedItem="{Binding SelectedProgramFile}" DisplayMemberPath="Key">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Background" Value="Transparent"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
 
 
                 <Label Grid.Row="2" Style="{StaticResource HeaderLabel}" Margin="5,5,5,0">MIDI CONNECTION</Label>
@@ -93,7 +99,7 @@
 
                 <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="0,5,5,0">
                     <Button Margin="0,0,0,5" Command="{Binding RequestProgramCommand}">Load Current Preset</Button>
-                    <Button Margin="0,0,0,5">Load Blank Preset</Button>
+                    <Button Margin="0,0,0,5" Command="{Binding LoadBlankCommand}">Load Blank Preset</Button>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Vertical" Margin="0,5,5,0">
