@@ -1,8 +1,10 @@
 # ADA MP-2 Program Editor & Librarian
 
-![](Screenshot.png)
-
 This is a Windows editor for the MP-2 Preamp. 
+
+*Written by Valdemar Erlingsson.*
+
+![](Screenshot.png)
 
 ## Features
 
