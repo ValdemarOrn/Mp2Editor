@@ -22,6 +22,10 @@ Grab the latest version from the **[Releases Page](https://github.com/ValdemarOr
 
 This software requires .NET Framework 4.5 to operate. Most users on Windows 7 or newer will already have this installed, but it can be installed via the Windows Update panel, or [downloaded directly from Microsoft](https://www.microsoft.com/en-gb/download/details.aspx?id=30653)
 
+## Video Introduction
+
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/X8Mmd2sOicY/0.jpg)](http://www.youtube.com/watch?v=X8Mmd2sOicY "Video")
+
 ## Reporting Issues
 
 Your support would be appreciated. If you do find any issues with the software, please [raise an issue on Github](https://github.com/ValdemarOrn/Mp2Editor/issues) I will do my best to fix it.
