@@ -9,7 +9,7 @@ This is a Windows editor for the MP-2 Preamp.
 * Control all parameters that affect the sound 
 * Send and receive programs via MIDI
 * Archive and manage your sysex programs.
-* Send Program Chane messages
+* Send Program Change messages
 * Free and open source software
 
 This editor can not edit the RTM (Real-time MIDI) settings of the unit.
