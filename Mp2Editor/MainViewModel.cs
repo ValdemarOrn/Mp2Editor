@@ -20,20 +20,18 @@ namespace Mp2Editor
 	    private readonly object sendLock = new object();
         private readonly string programDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Programs");
         private readonly string defaultProgramFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "DEFAULT_PROGRAM.syx");
+        private readonly ConfigSettings config;
 
-        private MidiConnection midiConnection { get; set; }
+        private MidiConnection midiConnection;
 	    private byte[] currentProgram;
         private byte[] newProgram;
 	    private string programName;
 	    private KeyValuePair<int, string>? selectedMidiInput;
 	    private KeyValuePair<int, string>? selectedMidiOutput;
-	    private ConfigSettings config;
 	    private bool suppressMidiUpdate;
 	    private bool suppressRefresh;
-
-	    private volatile byte[] programToSend;
+        private volatile byte[] programToSend;
 	    private Dictionary<string, string> programFiles;
-	    private KeyValuePair<string, string> selectedProgramFile;
 	    private int currentProgramNumber;
 	    private int midiChannel;
 	    private bool autoUpdate;
@@ -101,17 +99,22 @@ namespace Mp2Editor
 	        set { programFiles = value; NotifyPropertyChanged(); }
 	    }
 
-	    public KeyValuePair<string, string> SelectedProgramFile
+	    public KeyValuePair<string, string>? SelectedProgramFile
 	    {
-	        get { return selectedProgramFile; }
+	        get { return null; }
 	        set
             {
-                selectedProgramFile = value;
-	            NotifyPropertyChanged();
-
-                if (File.Exists(value.Value))
+                if (value == null)
                 {
-                    var data = File.ReadAllBytes(value.Value);
+                    NotifyPropertyChanged();
+                    return;
+                }
+
+                NotifyPropertyChanged();
+
+                if (File.Exists(value.Value.Value))
+                {
+                    var data = File.ReadAllBytes(value.Value.Value);
                     this.ReceiveProgramHandler(data);
                 }
 	        }
@@ -298,6 +301,7 @@ namespace Mp2Editor
         {
             try
             {
+                SelectedProgramFile = null;
                 suppressRefresh = true;
                 currentProgram = data;
                 var parsed = Mp2Sysex.ParseProgram(data);

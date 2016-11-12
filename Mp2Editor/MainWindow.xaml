@@ -36,7 +36,7 @@
                 <Label FontFamily="Arial" Margin="0,75,0,0" FontStyle="Italic" Foreground="#ddd">by Valdemar Erlingsson</Label>
                 <Label Style="{StaticResource HeaderLabel}" Margin="5,127,5,0">PRESET LIBRARY</Label>
                 <ListBox Grid.Column="0" Grid.Row="1" Margin="5" Background="#222" Foreground="#bbb"  BorderBrush="#555" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                         ItemsSource="{Binding ProgramFiles}" SelectedItem="{Binding SelectedProgramFile}" DisplayMemberPath="Key">
+                         SelectionMode="Single" ItemsSource="{Binding ProgramFiles}" SelectedItem="{Binding SelectedProgramFile}" DisplayMemberPath="Key" x:Name="ProgramListBox">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Background" Value="Transparent"/>

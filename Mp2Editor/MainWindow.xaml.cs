@@ -33,6 +33,13 @@ namespace Mp2Editor
             AppDomain.CurrentDomain.UnhandledException += (s, e) => { OnUnhandledException(e.ExceptionObject as Exception); };
 
 			DataContext = new MainViewModel();
+
+		    ProgramListBox.SelectionChanged += (s, e) =>
+		    {
+		        if (ProgramListBox.SelectedItem == null)
+		            ProgramListBox.UnselectAll();
+
+		    };
 		}
 
         public static void OnUnhandledException(Exception e)
