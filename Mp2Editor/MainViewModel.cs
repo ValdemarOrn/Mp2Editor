@@ -230,7 +230,7 @@ namespace Mp2Editor
 
         public void LoadWebsite()
         {
-            System.Diagnostics.Process.Start("http://google.com");
+            System.Diagnostics.Process.Start("https://github.com/ValdemarOrn/Mp2Editor");
         }
 
         private void LoadConfig()
