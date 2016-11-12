@@ -25,3 +25,11 @@ This software requires .NET Framework 4.5 to operate. Most users on Windows 7 or
 Your support would be appreciated. If you do find any issues with the software, please [raise an issue on Github](https://github.com/ValdemarOrn/Mp2Editor/issues) I will do my best to fix it.
 
 The program logs a full error log into a subdirectory called "Error Logs". Attaching the log file to your issue will make it much easier to fix the problem.
+
+## Sysex Protocol
+
+In order to build the editor I had to reverse-engineer the sysex format used by ADA. Some work had already been done by members of the ADA Depot discussion board, I am very grateful for the work they had done, as it was the key cracking the rest of the format.
+
+**[ADA Depot Discussion Thread](http://adadepot.com/index.php?topic=151.15)**
+
+A full set of notes on how the MP-2 program sysex is laid out can be found **[here](https://github.com/ValdemarOrn/Mp2Editor/blob/master/SysexProtocol.xlsx)**
